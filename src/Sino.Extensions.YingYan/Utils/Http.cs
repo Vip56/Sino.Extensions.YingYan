@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sino.Extensions.YingYan.Utils
 {
-    public class Http
+    public class HttpUtil
     {
         public RestClient Client { get; set; }
 
@@ -15,19 +15,44 @@ namespace Sino.Extensions.YingYan.Utils
         private string _ak;
         private string _serviceid;
 
-        public Http(string url, string ak, string serviceId)
+        public HttpUtil(string url, string ak, string serviceId)
         {
             Client = new RestClient(url);
             _ak = ak;
             _serviceid = serviceId;
         }
 
-        public Task<T> Get<T>(RestRequest request) where T : new()
+        public Task<T> GetAsync<T>(RestRequest request) where T : new()
         {
             return Task<T>.Factory.StartNew(() =>
             {
+                request.AddQueryParameter("ak", _ak);
+                request.AddQueryParameter("service_id", _serviceid);
+                if(UseSN)
+                {
+                    //暂未实现
+                }
                 var response = Client.Execute<T>(request);
                 if (response.IsSuccessful)
+                {
+                    HandleException(request, response);
+                }
+                return response.Data;
+            });
+        }
+
+        public Task<T> PostAsync<T>(RestRequest request) where T : new()
+        {
+            return Task<T>.Factory.StartNew(() =>
+            {
+                request.AddParameter("ak", _ak, ParameterType.RequestBody);
+                request.AddParameter("service_id", _serviceid, ParameterType.RequestBody);
+                if(UseSN)
+                {
+
+                }
+                var response = Client.Execute<T>(request);
+                if( response.IsSuccessful)
                 {
                     HandleException(request, response);
                 }

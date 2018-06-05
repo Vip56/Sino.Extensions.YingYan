@@ -3,7 +3,7 @@ using Xunit;
 
 namespace YingYanUnitTest
 {
-    public class UnitTest1
+    public class TerminalUnitTest
     {
         [Fact]
         public void Test1()

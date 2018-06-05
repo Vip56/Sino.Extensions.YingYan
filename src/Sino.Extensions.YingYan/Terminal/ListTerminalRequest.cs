@@ -29,6 +29,19 @@ namespace Sino.Extensions.YingYan.Terminal
         /// </summary>
         public Dictionary<string, string> ExtFilter { get; set; }
 
-        public 
+        /// <summary>
+        /// 坐标类型
+        /// </summary>
+        public CoordType CoordType { get; set; }
+
+        /// <summary>
+        /// 分页索引
+        /// </summary>
+        public int Index { get; set; }
+
+        /// <summary>
+        /// 分页大小
+        /// </summary>
+        public int Size { get; set; }
     }
 }

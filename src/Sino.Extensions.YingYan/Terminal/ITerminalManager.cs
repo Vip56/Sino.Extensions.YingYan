@@ -10,21 +10,21 @@ namespace Sino.Extensions.YingYan.Terminal
         /// <summary>
         /// 添加终端
         /// </summary>
-        Task<AddTerminalReply> AddAsync(AddTerminalRequest request);
+        Task<AddTerminalReply> AddAsync(AddTerminalRequest requestValue);
 
         /// <summary>
         /// 更新终端
         /// </summary>
-        Task<UpdateTerminalReply> UpdateAsync(UpdateTerminalRequest request);
+        Task<UpdateTerminalReply> UpdateAsync(UpdateTerminalRequest requestValue);
 
         /// <summary>
         /// 删除终端
         /// </summary>
-        Task<DeleteTerminalReply> DeleteAsync(DeleteTerminalRequest request);
+        Task<DeleteTerminalReply> DeleteAsync(DeleteTerminalRequest requestValue);
 
         /// <summary>
         /// 检索终端
         /// </summary>
-        Task<ListTerminalReply> ListAsync(ListTerminalRequest request);
+        Task<ListTerminalReply> ListAsync(ListTerminalRequest requestValue);
     }
 }
