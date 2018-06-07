@@ -37,11 +37,11 @@ namespace Sino.Extensions.YingYan.Terminal
         /// <summary>
         /// 分页索引
         /// </summary>
-        public int Index { get; set; }
+        public int Index { get; set; } = 0;
 
         /// <summary>
         /// 分页大小
         /// </summary>
-        public int Size { get; set; }
+        public int Size { get; set; } = 10;
     }
 }

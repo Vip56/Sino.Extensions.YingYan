@@ -45,14 +45,16 @@ namespace Sino.Extensions.YingYan.Utils
         {
             return Task<T>.Factory.StartNew(() =>
             {
-                request.AddParameter("ak", _ak, ParameterType.RequestBody);
-                request.AddParameter("service_id", _serviceid, ParameterType.RequestBody);
-                if(UseSN)
+                request.RequestFormat = DataFormat.Json;
+                request.AlwaysMultipartFormData = true;
+                request.AddParameter("ak", _ak);
+                request.AddParameter("service_id", _serviceid);
+                if (UseSN)
                 {
 
                 }
                 var response = Client.Execute<T>(request);
-                if( response.IsSuccessful)
+                if(!response.IsSuccessful)
                 {
                     HandleException(request, response);
                 }
