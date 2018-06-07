@@ -1,5 +1,4 @@
 using Sino.Extensions.YingYan.Terminal;
-using Sino.Extensions.YingYan.Utils;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -25,6 +24,40 @@ namespace YingYanUnitTest
 
             Assert.NotNull(response);
             Assert.Equal(0, response.Status);
+        }
+
+        [Fact]
+        public async Task Add_With_Null_Name_Test()
+        {
+            string exName = null;
+            var request = new AddTerminalRequest();
+
+            try
+            {
+                var response = await Manager.AddAsync(request);
+            }
+            catch (ArgumentNullException ex)
+            {
+                exName = ex.ParamName;
+            }
+            Assert.Equal("Name", exName);
+        }
+
+        [Fact]
+        public async Task Add_With_Empty_Name_Test()
+        {
+            string exName = "";
+            var request = new AddTerminalRequest();
+
+            try
+            {
+                var response = await Manager.AddAsync(request);
+            }
+            catch(ArgumentNullException ex)
+            {
+                exName = ex.ParamName;
+            }
+            Assert.Equal("Name", exName);
         }
     }
 }

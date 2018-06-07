@@ -1,8 +1,7 @@
 ﻿using RestSharp;
 using Sino.Extensions.YingYan.Utils;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using Conditions;
 using System.Threading.Tasks;
 
 namespace Sino.Extensions.YingYan.Terminal
@@ -14,7 +13,15 @@ namespace Sino.Extensions.YingYan.Terminal
 
         public async Task<AddTerminalReply> AddAsync(AddTerminalRequest requestValue)
         {
+            Condition.Requires(requestValue.Name, nameof(requestValue.Name))
+                .IsNotNull()
+                .IsNotEmpty()
+                .IsShorterOrEqual(128)
+                .IsWordOrNumberOrLine();
 
+            Condition.Requires(requestValue.Description, nameof(requestValue.Description))
+                .IsShorterOrEqual(128)
+                .IsWordOrNumberOrLine();
 
             var request = new RestRequest("/entity/add", Method.POST);
             request.AddParameter("entity_name", requestValue.Name);
