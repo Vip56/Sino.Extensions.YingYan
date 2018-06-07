@@ -92,7 +92,7 @@ namespace Sino.Extensions.YingYan.Terminal
 
             request.AddParameter("filter", filter.ToString());
 
-            request.AddParameter("coord_type_output", (requestValue.CoordType.GetEnumDescription<CoordType>());
+            request.AddParameter("coord_type_output", (requestValue.CoordType.GetEnumDescription<CoordType>()));
             request.AddParameter("page_index", requestValue.Index);
             request.AddParameter("page_size", requestValue.Size);
 
