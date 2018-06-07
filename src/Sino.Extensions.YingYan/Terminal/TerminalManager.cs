@@ -14,9 +14,11 @@ namespace Sino.Extensions.YingYan.Terminal
 
         public async Task<AddTerminalReply> AddAsync(AddTerminalRequest requestValue)
         {
+
+
             var request = new RestRequest("/entity/add", Method.POST);
-            request.AddParameter("entity_name", requestValue.Name, ParameterType.RequestBody);
-            request.AddParameter("entity_desc", requestValue.Description, ParameterType.RequestBody);
+            request.AddParameter("entity_name", requestValue.Name);
+            request.AddParameter("entity_desc", requestValue.Description);
             if(requestValue.Ext != null && requestValue.Ext.Count > 0)
             {
                 foreach(var item in requestValue.Ext)
