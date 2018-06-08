@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sino.Extensions.YingYan.Export
 {
-    public class CreateJobReply:Reply
+    public class CreateJobReply : Reply
     {
         /// <summary>
         /// 任务 id 

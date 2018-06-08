@@ -12,6 +12,11 @@ namespace Sino.Extensions.YingYan.Space
         public string Center { get; set; }
 
         /// <summary>
+        /// 搜索半径
+        /// </summary>
+        public int Radius { get; set; }
+
+        /// <summary>
         /// 请求参数 center 的坐标类型 
         /// </summary>
         public CoordType CoordTypeInput { get; set; }
