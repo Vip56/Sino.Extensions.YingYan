@@ -29,7 +29,7 @@ namespace Sino.Extensions.YingYan.Track
         /// <summary>
         /// 坐标类型
         /// </summary>
-        public CoordType CoordTypeInput { get; set; }
+        public CoordType CoordTypeInput { get; set; } = CoordType.BD09ll;
 
         /// <summary>
         /// 速度

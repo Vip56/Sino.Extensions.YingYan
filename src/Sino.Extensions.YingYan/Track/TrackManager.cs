@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Conditions;
 using RestSharp;
 using Sino.Extensions.YingYan.Common.Extensions;
 using Sino.Extensions.YingYan.Utils;
@@ -21,6 +22,13 @@ namespace Sino.Extensions.YingYan.Track
         /// <returns></returns>
         public async Task<AddPointReply> AddPointAsync(AddPointRequest requestValue)
         {
+            Condition.Requires(requestValue.EntityName, nameof(requestValue.EntityName))
+            .IsShorterOrEqual(128);
+            Condition.Requires(requestValue.Latitude, nameof(requestValue.Latitude))
+            .IsInRange(-90.0, 90.0);
+            Condition.Requires(requestValue.Longitude, nameof(requestValue.Longitude))
+            .IsInRange(-180.0, 180.0);
+
             var request = new RestRequest("/track/addpoint", Method.POST);
             request.AddParameter("entity_name", requestValue.EntityName, ParameterType.RequestBody);
             request.AddParameter("latitude", requestValue.Latitude, ParameterType.RequestBody);
@@ -43,6 +51,9 @@ namespace Sino.Extensions.YingYan.Track
         /// <returns></returns>
         public async Task<AddPointsReply> AddPointsAsync(AddPointsRequest requestValue)
         {
+            Condition.Requires(requestValue.PointList, nameof(requestValue.PointList))
+            .IsNotNull();
+
             var request = new RestRequest("/track/addpoints", Method.POST);
             request.AddParameter("point_list", requestValue.PointList, ParameterType.RequestBody);
 
@@ -56,7 +67,10 @@ namespace Sino.Extensions.YingYan.Track
         /// <returns></returns>
         public async Task<DrivingBehaviourReply> DrivingBehaviourAsync(DrivingBehaviourRequest requestValue)
         {
-            var request = new RestRequest("/entity/getdistance", Method.GET);
+            Condition.Requires(requestValue.EntityName, nameof(requestValue.EntityName))
+            .IsNotNullOrEmpty();
+
+            var request = new RestRequest("/analysis/drivingbehavior", Method.GET);
             request.AddParameter("entity_name", requestValue.EntityName, ParameterType.QueryString);
             request.AddParameter("start_time", requestValue.StartTime, ParameterType.QueryString);
             request.AddParameter("end_time", requestValue.EndTime, ParameterType.QueryString);
@@ -77,7 +91,10 @@ namespace Sino.Extensions.YingYan.Track
         /// <returns></returns>
         public async Task<GetDistanceReply> GetDistanceAsync(GetDistanceRequest requestValue)
         {
-            var request = new RestRequest("/entity/getdistance", Method.GET);
+            Condition.Requires(requestValue.EntityName, nameof(requestValue.EntityName))
+            .IsNotNullOrEmpty();
+
+            var request = new RestRequest("/track/getdistance", Method.GET);
             request.AddParameter("entity_name", requestValue.EntityName, ParameterType.QueryString);
             request.AddParameter("start_time", requestValue.StartTime, ParameterType.QueryString);
             request.AddParameter("end_time", requestValue.EndTime, ParameterType.QueryString);
@@ -95,6 +112,9 @@ namespace Sino.Extensions.YingYan.Track
         /// <returns></returns>
         public async Task<GetLatestPointReply> GetLatestPointAsync(GetLatestPointRequest requestValue)
         {
+            Condition.Requires(requestValue.EntityName, nameof(requestValue.EntityName))
+             .IsNotNullOrEmpty();
+
             var request = new RestRequest("/track/getlatestpoint", Method.GET);
             request.AddParameter("entity_name", requestValue.EntityName, ParameterType.QueryString);
             request.AddParameter("process_option", requestValue.ProcessOption, ParameterType.QueryString);
@@ -110,6 +130,9 @@ namespace Sino.Extensions.YingYan.Track
         /// <returns></returns>
         public async Task<GetTrackReply> GetTrackAsync(GetTrackRequest requestValue)
         {
+            Condition.Requires(requestValue.EntityName, nameof(requestValue.EntityName))
+            .IsNotNullOrEmpty();
+
             var request = new RestRequest("/track/gettrack", Method.GET);
             request.AddParameter("entity_name", requestValue.EntityName, ParameterType.QueryString);
             request.AddParameter("start_time", requestValue.StartTime, ParameterType.QueryString);
@@ -132,6 +155,10 @@ namespace Sino.Extensions.YingYan.Track
         /// <returns></returns>
         public async Task<StayPointReply> StayPointAsync(StayPointRequest requestValue)
         {
+            Condition.Requires(requestValue.EntityName, nameof(requestValue.EntityName))
+            .IsNotNullOrEmpty()
+            .IsShorterOrEqual(128);
+
             var request = new RestRequest("/analysis/staypoint", Method.GET);
             request.AddParameter("entity_name", requestValue.EntityName, ParameterType.QueryString);
             request.AddParameter("start_time", requestValue.StartTime, ParameterType.QueryString);

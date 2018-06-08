@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Conditions;
 using RestSharp;
 using Sino.Extensions.YingYan.Common.Extensions;
 using Sino.Extensions.YingYan.Utils;
@@ -57,10 +58,8 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<CreateCircleFenceReply> CreateCircleFenceAsync(CreateCircleFenceRequest requestValue)
         {
-            if (requestValue.Radius < 0 || requestValue.Radius > 5000)
-            {
-
-            }
+            Condition.Requires(requestValue.Radius, nameof(requestValue.Radius))
+            .IsInRange(0, 5000);
 
             var request = new RestRequest("/fence/createcirclefence", Method.POST);
             request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
@@ -80,10 +79,8 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<CreateDistrictFenceReply> CreateDistrictFenceAsync(CreateDistrictFenceRequest requestValue)
         {
-            if (string.IsNullOrEmpty(requestValue.KeyWord))
-            {
-
-            }
+            Condition.Requires(requestValue.KeyWord, nameof(requestValue.KeyWord))
+            .IsNotEmpty();
 
             var request = new RestRequest("/fence/createdistrictfence", Method.POST);
             request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
@@ -101,10 +98,8 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<CreatePolygonFenceReply> CreatePolygonFenceAsync(CreatePolygonFenceRequest requestValue)
         {
-            if (requestValue.Vertexes.Length < 3 || requestValue.Vertexes.Length > 100)
-            {
-
-            }
+            Condition.Requires(requestValue.Vertexes.Length, nameof(requestValue.Vertexes.Length))
+            .IsInRange(3, 100);
 
             var request = new RestRequest("/fence/createpolygonfence", Method.POST);
             request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
@@ -123,10 +118,8 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<CreatePolylineFenceReply> CreatePolylineFenceAsync(CreatePolylineFenceRequest requestValue)
         {
-            if (requestValue.Vertexes.Length < 2 || requestValue.Vertexes.Length > 100)
-            {
-
-            }
+            Condition.Requires(requestValue.Vertexes.Length, nameof(requestValue.Vertexes.Length))
+            .IsInRange(2, 100);
 
             var request = new RestRequest("/fence/createpolylinefence", Method.POST);
             request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
@@ -166,10 +159,8 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<DeleteMonitoredPersonReply> DeleteMonitoredPersonAsync(DeleteMonitoredPersonRequest requestValue)
         {
-            if (requestValue.MonitoredPerson.Split(',').Length > 100)
-            {
-
-            }
+            Condition.Requires(requestValue.MonitoredPerson.Split(',').Length, nameof(requestValue.MonitoredPerson))
+            .IsInRange(0, 100);
 
             var request = new RestRequest("/fence/deletemonitoredperson ", Method.POST);
             request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
@@ -269,10 +260,8 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<UpdateCircleFenceReply> UpdateCircleFenceAsync(UpdateCircleFenceRequest requestValue)
         {
-            if (requestValue.Radius < 0 || requestValue.Radius > 5000)
-            {
-
-            }
+            Condition.Requires(requestValue.Radius, nameof(requestValue.Radius))
+            .IsInRange(0, 5000);
 
             var request = new RestRequest("/fence/updatecirclefence", Method.POST);
             request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
@@ -310,10 +299,8 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<UpdatePolygonFenceReply> UpdatePolygonFenceAsync(UpdatePolygonFenceRequest requestValue)
         {
-            if (requestValue.Vertexes.Length < 3 || requestValue.Vertexes.Length > 100)
-            {
-
-            }
+            Condition.Requires(requestValue.Vertexes.Length, nameof(requestValue.Vertexes))
+             .IsInRange(3, 100);
 
             var request = new RestRequest("/fence/updatepolygonfence", Method.POST);
             request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
@@ -333,10 +320,8 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<UpdatePolylineFenceReply> UpdatePolylineFenceAsync(UpdatePolylineFenceRequest requestValue)
         {
-            if (requestValue.Vertexes.Length < 3 || requestValue.Vertexes.Length > 100)
-            {
-
-            }
+            Condition.Requires(requestValue.Vertexes.Length, nameof(requestValue.Vertexes))
+               .IsInRange(3, 100);
 
             var request = new RestRequest("/fence/updatepolylinefence", Method.POST);
             request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
