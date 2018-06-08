@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Conditions;
 using RestSharp;
 using Sino.Extensions.YingYan.Common.Extensions;
 using Sino.Extensions.YingYan.Utils;
 
 namespace Sino.Extensions.YingYan.Space
 {
+    /// <summary>
+    /// 空间
+    /// </summary>
     public class SpaceManager : RootManager, ISpaceManager
     {
         public SpaceManager(HttpUtil http) : base(http)
@@ -21,6 +25,11 @@ namespace Sino.Extensions.YingYan.Space
         /// <returns></returns>
         public async Task<AroundSearchReply> AroundSearchAsync(AroundSearchRequest requestValue)
         {
+            Condition.Requires(requestValue.Radius, nameof(requestValue.Radius))
+            .IsInRange(1, 5000);
+            Condition.Requires(requestValue.Center, nameof(requestValue.Center))
+            .IsNotEmpty();
+
             var request = new RestRequest("/entity/aroundsearch ", Method.GET);
             request.AddParameter("center", requestValue.Center, ParameterType.QueryString);
             request.AddParameter("radius", requestValue.Radius, ParameterType.QueryString);
@@ -41,6 +50,9 @@ namespace Sino.Extensions.YingYan.Space
         /// <returns></returns>
         public async Task<BoundSearchReply> BoundSearchAsync(BoundSearchRequest requestValue)
         {
+            Condition.Requires(requestValue.Bounds, nameof(requestValue.Bounds))
+            .IsShorterOrEqual(25);
+
             var request = new RestRequest("/entity/boundsearch ", Method.GET);
             request.AddParameter("bounds", requestValue.Bounds, ParameterType.QueryString);
             request.AddParameter("filter", requestValue.Filter, ParameterType.QueryString);
@@ -60,7 +72,10 @@ namespace Sino.Extensions.YingYan.Space
         /// <returns></returns>
         public async Task<DistrictSearchReply> DistrictSearchAsync(DistrictSearchRequest requestValue)
         {
-            var request = new RestRequest("/entity/boundsearch ", Method.GET);
+            Condition.Requires(requestValue.KeyWord, nameof(requestValue.KeyWord))
+            .IsNotEmpty();
+
+            var request = new RestRequest("/entity/districtsearch", Method.GET);
             request.AddParameter("keyword", requestValue.KeyWord, ParameterType.QueryString);
             request.AddParameter("filter", requestValue.Filter, ParameterType.QueryString);
             request.AddParameter("sortby", requestValue.Sortby, ParameterType.QueryString);

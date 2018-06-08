@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Conditions;
 using RestSharp;
 using Sino.Extensions.YingYan.Utils;
 
@@ -20,6 +21,8 @@ namespace Sino.Extensions.YingYan.Export
         /// <returns></returns>
         public async Task<CreateJobReply> CreateJobAsync(CreateJobRequest requestValue)
         {
+
+
             var request = new RestRequest("/export/createjob", Method.POST);
             request.AddParameter("start_time", requestValue.StartTime, ParameterType.RequestBody);
             request.AddParameter("end_time", requestValue.EndTime, ParameterType.RequestBody);
@@ -35,6 +38,7 @@ namespace Sino.Extensions.YingYan.Export
         /// <returns></returns>
         public async Task<DeleteJobReply> DeleteJobAsync(DeleteJobRequest requestValue)
         {
+
             var request = new RestRequest("/export/deletejob", Method.POST);
             request.AddParameter("job_id", requestValue.JobId, ParameterType.RequestBody);
 
