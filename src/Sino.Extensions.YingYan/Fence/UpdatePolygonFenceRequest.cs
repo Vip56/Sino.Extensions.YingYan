@@ -9,7 +9,7 @@ namespace Sino.Extensions.YingYan.Fence
         /// <summary>
         /// 围栏的唯一标识
         /// </summary>
-        public string FenceId { get; set; }
+        public int FenceId { get; set; }
 
         /// <summary>
         /// 多边形围栏形状点

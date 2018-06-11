@@ -40,7 +40,7 @@ namespace Sino.Extensions.YingYan.Space
             request.AddParameter("page_index", requestValue.PageIndex, ParameterType.QueryString);
             request.AddParameter("page_size", requestValue.PageSize, ParameterType.QueryString);
 
-            return await Client.PostAsync<AroundSearchReply>(request);
+            return await Client.GetAsync<AroundSearchReply>(request);
         }
 
         /// <summary>
@@ -50,8 +50,6 @@ namespace Sino.Extensions.YingYan.Space
         /// <returns></returns>
         public async Task<BoundSearchReply> BoundSearchAsync(BoundSearchRequest requestValue)
         {
-            Condition.Requires(requestValue.Bounds, nameof(requestValue.Bounds))
-            .IsShorterOrEqual(25);
 
             var request = new RestRequest("/entity/boundsearch ", Method.GET);
             request.AddParameter("bounds", requestValue.Bounds, ParameterType.QueryString);
@@ -62,7 +60,7 @@ namespace Sino.Extensions.YingYan.Space
             request.AddParameter("page_index", requestValue.PageIndex, ParameterType.QueryString);
             request.AddParameter("page_size", requestValue.PageSize, ParameterType.QueryString);
 
-            return await Client.PostAsync<BoundSearchReply>(request);
+            return await Client.GetAsync<BoundSearchReply>(request);
         }
 
         /// <summary>
@@ -84,7 +82,7 @@ namespace Sino.Extensions.YingYan.Space
             request.AddParameter("page_index", requestValue.PageIndex, ParameterType.QueryString);
             request.AddParameter("page_size", requestValue.PageSize, ParameterType.QueryString);
 
-            return await Client.PostAsync<DistrictSearchReply>(request);
+            return await Client.GetAsync<DistrictSearchReply>(request);
         }
 
         /// <summary>
@@ -103,7 +101,7 @@ namespace Sino.Extensions.YingYan.Space
             request.AddParameter("page_index", requestValue.PageIndex, ParameterType.QueryString);
             request.AddParameter("page_size", requestValue.PageSize, ParameterType.QueryString);
 
-            return await Client.PostAsync<PolygonSearchReply>(request);
+            return await Client.GetAsync<PolygonSearchReply>(request);
         }
 
         /// <summary>
@@ -121,7 +119,7 @@ namespace Sino.Extensions.YingYan.Space
             request.AddParameter("page_index", requestValue.PageIndex, ParameterType.QueryString);
             request.AddParameter("page_size", requestValue.PageSize, ParameterType.QueryString);
 
-            return await Client.PostAsync<SearchReply>(request);
+            return await Client.GetAsync<SearchReply>(request);
         }
     }
 }

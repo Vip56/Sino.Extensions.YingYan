@@ -25,6 +25,7 @@ namespace YingYanUnitTest
             };
             var result = await Manager.SearchAsync(request);
             Assert.NotNull(result);
+            Assert.Equal(0, result.Status);
         }
 
         [Fact]
@@ -72,7 +73,7 @@ namespace YingYanUnitTest
         {
             var request = new DistrictSearchRequest()
             {
-                KeyWord = "北京",
+                KeyWord = "江苏镇江",
                 PageIndex = 1,
                 PageSize = 100
             };

@@ -19,11 +19,11 @@ namespace Sino.Extensions.YingYan.Track
         [DeserializeAs(Name = "latitude")]
         public double Latitude { get; set; }
 
-        /// <summary>
-        /// 坐标类型
-        /// </summary>
-        [DeserializeAs(Name = "coord_type")]
-        public string CoordType { get; set; }
+        ///// <summary>
+        ///// 坐标类型
+        ///// </summary>
+        //[DeserializeAs(Name = "coord_type")]
+        //public string CoordType { get; set; }
 
         /// <summary>
         /// 定位时间
@@ -31,10 +31,10 @@ namespace Sino.Extensions.YingYan.Track
         [DeserializeAs(Name = "loc_time")]
         public long LocTime { get; set; }
 
-        /// <summary>
-        /// 终点地址
-        /// </summary>
-        [DeserializeAs(Name = "address")]
-        public string Address { get; set; }
+        ///// <summary>
+        ///// 终点地址
+        ///// </summary>
+        //[DeserializeAs(Name = "address")]
+        //public string Address { get; set; }
     }
 }
