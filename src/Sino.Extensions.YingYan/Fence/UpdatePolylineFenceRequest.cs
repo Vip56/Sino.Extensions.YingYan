@@ -19,7 +19,7 @@ namespace Sino.Extensions.YingYan.Fence
         /// <summary>
         /// 偏离距离
         /// </summary>
-        public int Offset { get; set; }
+        public int Offset { get; set; } = 1;
 
         /// <summary>
         /// 坐标类型

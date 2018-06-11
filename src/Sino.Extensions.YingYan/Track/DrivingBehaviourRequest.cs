@@ -29,17 +29,17 @@ namespace Sino.Extensions.YingYan.Track
         /// <summary>
         /// 急加速的加速度阈值 
         /// </summary>
-        public double HarshAccelerationThreshold { get; set; }
+        public double HarshAccelerationThreshold { get; set; } = 1.67;
 
         /// <summary>
         /// 急减速的加速度阈值 
         /// </summary>
-        public double HarshBreakingThreshold { get; set; }
+        public double HarshBreakingThreshold { get; set; } = -1.67;
 
         /// <summary>
         /// 急转弯的向心加速度阈值
         /// </summary>
-        public double HarshSteeringThreshold { get; set; }
+        public double HarshSteeringThreshold { get; set; } = 5;
 
         /// <summary>
         /// 纠偏选项，用于控制返回坐标的纠偏处理方式，不填则按默认纠偏方式处理 

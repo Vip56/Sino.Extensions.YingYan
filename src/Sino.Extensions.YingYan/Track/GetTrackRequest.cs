@@ -49,11 +49,11 @@ namespace Sino.Extensions.YingYan.Track
         /// <summary>
         /// 分页索引
         /// </summary>
-        public int PageIndex { get; set; }
+        public int PageIndex { get; set; } = 1;
 
         /// <summary>
         /// 分页大小
         /// </summary>
-        public int PageSize { get; set; }
+        public int PageSize { get; set; } = 100;
     }
 }

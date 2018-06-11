@@ -22,14 +22,9 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<AddMonitoredPersonReply> AddMonitoredPersonAsync(AddMonitoredPersonRequest requestValue)
         {
-            if (requestValue.MonitoredPerson.Split(',').Length > 100)
-            {
-
-            }
-
             var request = new RestRequest("/fence/addmonitoredperson", Method.POST);
-            request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
+            request.AddParameter("fence_id", requestValue.FenceId);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
 
             return await Client.PostAsync<AddMonitoredPersonReply>(request);
         }
@@ -41,14 +36,14 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<BatchHistoryAlarmReply> BatchHistoryAlarmAsync(BatchHistoryAlarmRequest requestValue)
         {
-            var request = new RestRequest("/fence/historyalarm", Method.GET);
+            var request = new RestRequest("/fence/batchhistoryalarm", Method.GET);
             request.AddParameter("start_time", requestValue.StartTime, ParameterType.QueryString);
             request.AddParameter("end_time", requestValue.EndTime, ParameterType.QueryString);
             request.AddParameter("coord_type_output", requestValue.CoordTypeOutput.GetEnumDescription<CoordType>(), ParameterType.QueryString);
             request.AddParameter("page_index", requestValue.PageIndex, ParameterType.QueryString);
             request.AddParameter("page_size", requestValue.PageSize, ParameterType.QueryString);
 
-            return await Client.PostAsync<BatchHistoryAlarmReply>(request);
+            return await Client.GetAsync<BatchHistoryAlarmReply>(request);
         }
 
         /// <summary>
@@ -62,12 +57,13 @@ namespace Sino.Extensions.YingYan.Fence
             .IsInRange(0, 5000);
 
             var request = new RestRequest("/fence/createcirclefence", Method.POST);
-            request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
-            request.AddParameter("longitude", requestValue.Longitude, ParameterType.RequestBody);
-            request.AddParameter("latitude", requestValue.Latitude, ParameterType.RequestBody);
-            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>(), ParameterType.RequestBody);
-            request.AddParameter("denoise", requestValue.Denoise, ParameterType.RequestBody);
+            request.AddParameter("fence_name", requestValue.FenceName);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
+            request.AddParameter("longitude", requestValue.Longitude);
+            request.AddParameter("latitude", requestValue.Latitude);
+            request.AddParameter("radius", requestValue.Radius);
+            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>());
+            request.AddParameter("denoise", requestValue.Denoise);
 
             return await Client.PostAsync<CreateCircleFenceReply>(request);
         }
@@ -83,10 +79,10 @@ namespace Sino.Extensions.YingYan.Fence
             .IsNotEmpty();
 
             var request = new RestRequest("/fence/createdistrictfence", Method.POST);
-            request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
-            request.AddParameter("keyword", requestValue.KeyWord, ParameterType.RequestBody);
-            request.AddParameter("denoise", requestValue.Denoise, ParameterType.RequestBody);
+            request.AddParameter("fence_name", requestValue.FenceName);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
+            request.AddParameter("keyword", requestValue.KeyWord);
+            request.AddParameter("denoise", requestValue.Denoise);
 
             return await Client.PostAsync<CreateDistrictFenceReply>(request);
         }
@@ -102,11 +98,11 @@ namespace Sino.Extensions.YingYan.Fence
             .IsInRange(3, 100);
 
             var request = new RestRequest("/fence/createpolygonfence", Method.POST);
-            request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
-            request.AddParameter("vertexes", string.Join(";", requestValue.Vertexes), ParameterType.RequestBody);
-            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>(), ParameterType.RequestBody);
-            request.AddParameter("denoise", requestValue.Denoise, ParameterType.RequestBody);
+            request.AddParameter("fence_name", requestValue.FenceName);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
+            request.AddParameter("vertexes", string.Join(";", requestValue.Vertexes));
+            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>());
+            request.AddParameter("denoise", requestValue.Denoise);
 
             return await Client.PostAsync<CreatePolygonFenceReply>(request);
         }
@@ -122,12 +118,12 @@ namespace Sino.Extensions.YingYan.Fence
             .IsInRange(2, 100);
 
             var request = new RestRequest("/fence/createpolylinefence", Method.POST);
-            request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
-            request.AddParameter("vertexes", string.Join(";", requestValue.Vertexes), ParameterType.RequestBody);
-            request.AddParameter("offset", requestValue.Offset, ParameterType.RequestBody);
-            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>(), ParameterType.RequestBody);
-            request.AddParameter("denoise", requestValue.Denoise, ParameterType.RequestBody);
+            request.AddParameter("fence_name", requestValue.FenceName);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
+            request.AddParameter("vertexes", string.Join(";", requestValue.Vertexes));
+            request.AddParameter("offset", requestValue.Offset);
+            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>());
+            request.AddParameter("denoise", requestValue.Denoise);
 
             return await Client.PostAsync<CreatePolylineFenceReply>(request);
         }
@@ -145,9 +141,9 @@ namespace Sino.Extensions.YingYan.Fence
             }
 
             var request = new RestRequest("/fence/delete", Method.POST);
-            request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
-            request.AddParameter("fence_ids", requestValue.FenceIds, ParameterType.RequestBody);
+            request.AddParameter("fence_name", requestValue.FenceName);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
+            request.AddParameter("fence_ids", requestValue.FenceIds);
 
             return await Client.PostAsync<DeleteFenceReply>(request);
         }
@@ -163,8 +159,8 @@ namespace Sino.Extensions.YingYan.Fence
             .IsInRange(0, 100);
 
             var request = new RestRequest("/fence/deletemonitoredperson ", Method.POST);
-            request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
+            request.AddParameter("fence_id", requestValue.FenceId);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
 
             return await Client.PostAsync<DeleteMonitoredPersonReply>(request);
         }
@@ -176,14 +172,15 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<HistoryAlarmReply> HistoryAlarmAsync(HistoryAlarmRequest requestValue)
         {
+
             var request = new RestRequest("/fence/historyalarm", Method.GET);
-            request.AddParameter("start_time", requestValue.StartTime, ParameterType.QueryString);
-            request.AddParameter("end_time", requestValue.EndTime, ParameterType.QueryString);
+            request.AddParameter("start_time", requestValue.StartTime == 0 ? "" : requestValue.StartTime.ToString(), ParameterType.QueryString);
+            request.AddParameter("end_time", requestValue.EndTime == 0 ? "" : requestValue.EndTime.ToString(), ParameterType.QueryString);
             request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.QueryString);
             request.AddParameter("fence_ids", requestValue.FenceIds, ParameterType.QueryString);
             request.AddParameter("coord_type_output", requestValue.CoordTypeOutput.GetEnumDescription<CoordType>(), ParameterType.QueryString);
 
-            return await Client.PostAsync<HistoryAlarmReply>(request);
+            return await Client.GetAsync<HistoryAlarmReply>(request);
         }
 
         /// <summary>
@@ -204,7 +201,7 @@ namespace Sino.Extensions.YingYan.Fence
             request.AddParameter("fence_ids", requestValue.FenceIds, ParameterType.QueryString);
             request.AddParameter("coord_type_output", requestValue.CoordTypeOutput.GetEnumDescription<CoordType>(), ParameterType.QueryString);
 
-            return await Client.PostAsync<ListFenceReply>(request);
+            return await Client.GetAsync<ListFenceReply>(request);
         }
 
         /// <summary>
@@ -219,7 +216,7 @@ namespace Sino.Extensions.YingYan.Fence
             request.AddParameter("page_index", requestValue.PageIndex, ParameterType.QueryString);
             request.AddParameter("page_size", requestValue.PageSize, ParameterType.QueryString);
 
-            return await Client.PostAsync<ListMonitoredPersonReply>(request);
+            return await Client.GetAsync<ListMonitoredPersonReply>(request);
         }
 
         /// <summary>
@@ -233,7 +230,7 @@ namespace Sino.Extensions.YingYan.Fence
             request.AddParameter("fence_ids", requestValue.FenceIds, ParameterType.QueryString);
             request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.QueryString);
 
-            return await Client.PostAsync<QueryStatusReply>(request);
+            return await Client.GetAsync<QueryStatusReply>(request);
         }
 
         /// <summary>
@@ -247,10 +244,10 @@ namespace Sino.Extensions.YingYan.Fence
             request.AddParameter("fence_ids", requestValue.FenceIds, ParameterType.QueryString);
             request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.QueryString);
             request.AddParameter("longitude", requestValue.Longitude, ParameterType.QueryString);
-            request.AddParameter("latidude", requestValue.Latitude, ParameterType.QueryString);
+            request.AddParameter("latitude", requestValue.Latitude, ParameterType.QueryString);
             request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>(), ParameterType.QueryString);
 
-            return await Client.PostAsync<QueryStatusByLocationReply>(request);
+            return await Client.GetAsync<QueryStatusByLocationReply>(request);
         }
 
         /// <summary>
@@ -264,13 +261,13 @@ namespace Sino.Extensions.YingYan.Fence
             .IsInRange(0, 5000);
 
             var request = new RestRequest("/fence/updatecirclefence", Method.POST);
-            request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
-            request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
-            request.AddParameter("longitude", requestValue.Longitude, ParameterType.RequestBody);
-            request.AddParameter("latitude", requestValue.Latitude, ParameterType.RequestBody);
-            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>(), ParameterType.RequestBody);
-            request.AddParameter("denoise", requestValue.Denoise, ParameterType.RequestBody);
+            request.AddParameter("fence_id", requestValue.FenceId);
+            request.AddParameter("fence_name", requestValue.FenceName);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
+            request.AddParameter("longitude", requestValue.Longitude);
+            request.AddParameter("latitude", requestValue.Latitude);
+            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>());
+            request.AddParameter("denoise", requestValue.Denoise);
 
             return await Client.PostAsync<UpdateCircleFenceReply>(request);
         }
@@ -283,11 +280,11 @@ namespace Sino.Extensions.YingYan.Fence
         public async Task<UpdateDistrictFenceReply> UpdateDistrictFenceAsync(UpdateDistrictFenceRequest requestValue)
         {
             var request = new RestRequest("/fence/updatedistrictfence", Method.POST);
-            request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
-            request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
-            request.AddParameter("keyword", requestValue.KeyWord, ParameterType.RequestBody);
-            request.AddParameter("denoise", requestValue.Denoise, ParameterType.RequestBody);
+            request.AddParameter("fence_id", requestValue.FenceId);
+            request.AddParameter("fence_name", requestValue.FenceName);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
+            request.AddParameter("keyword", requestValue.KeyWord);
+            request.AddParameter("denoise", requestValue.Denoise);
 
             return await Client.PostAsync<UpdateDistrictFenceReply>(request);
         }
@@ -299,16 +296,16 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<UpdatePolygonFenceReply> UpdatePolygonFenceAsync(UpdatePolygonFenceRequest requestValue)
         {
-            Condition.Requires(requestValue.Vertexes.Length, nameof(requestValue.Vertexes))
-             .IsInRange(3, 100);
+            //Condition.Requires(requestValue.Vertexes.Length, nameof(requestValue.Vertexes))
+            // .IsInRange(3, 100);
 
             var request = new RestRequest("/fence/updatepolygonfence", Method.POST);
-            request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
-            request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
-            request.AddParameter("vertexes", string.Join(";", requestValue.Vertexes), ParameterType.RequestBody);
-            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>(), ParameterType.RequestBody);
-            request.AddParameter("denoise", requestValue.Denoise, ParameterType.RequestBody);
+            request.AddParameter("fence_id", requestValue.FenceId);
+            request.AddParameter("fence_name", requestValue.FenceName);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
+            request.AddParameter("vertexes", requestValue.Vertexes == null ? "" : string.Join(";", requestValue.Vertexes));
+            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>());
+            request.AddParameter("denoise", requestValue.Denoise);
 
             return await Client.PostAsync<UpdatePolygonFenceReply>(request);
         }
@@ -320,17 +317,14 @@ namespace Sino.Extensions.YingYan.Fence
         /// <returns></returns>
         public async Task<UpdatePolylineFenceReply> UpdatePolylineFenceAsync(UpdatePolylineFenceRequest requestValue)
         {
-            Condition.Requires(requestValue.Vertexes.Length, nameof(requestValue.Vertexes))
-               .IsInRange(3, 100);
-
             var request = new RestRequest("/fence/updatepolylinefence", Method.POST);
-            request.AddParameter("fence_id", requestValue.FenceId, ParameterType.RequestBody);
-            request.AddParameter("fence_name", requestValue.FenceName, ParameterType.RequestBody);
-            request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.RequestBody);
-            request.AddParameter("vertexes", string.Join(";", requestValue.Vertexes), ParameterType.RequestBody);
-            request.AddParameter("offset", requestValue.Offset, ParameterType.RequestBody);
-            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>(), ParameterType.RequestBody);
-            request.AddParameter("denoise", requestValue.Denoise, ParameterType.RequestBody);
+            request.AddParameter("fence_id", requestValue.FenceId);
+            request.AddParameter("fence_name", requestValue.FenceName);
+            request.AddParameter("monitored_person", requestValue.MonitoredPerson);
+            request.AddParameter("vertexes", requestValue.Vertexes == null ? "" : string.Join(";", requestValue.Vertexes));
+            request.AddParameter("offset", requestValue.Offset);
+            request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>());
+            request.AddParameter("denoise", requestValue.Denoise);
 
             return await Client.PostAsync<UpdatePolylineFenceReply>(request);
         }

@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Conditions;
 using RestSharp;
+using Sino.Extensions.YingYan.Common.Extensions;
 using Sino.Extensions.YingYan.Utils;
 
 namespace Sino.Extensions.YingYan.Export
@@ -21,12 +22,10 @@ namespace Sino.Extensions.YingYan.Export
         /// <returns></returns>
         public async Task<CreateJobReply> CreateJobAsync(CreateJobRequest requestValue)
         {
-
-
             var request = new RestRequest("/export/createjob", Method.POST);
-            request.AddParameter("start_time", requestValue.StartTime, ParameterType.RequestBody);
-            request.AddParameter("end_time", requestValue.EndTime, ParameterType.RequestBody);
-            request.AddParameter("coord_type_output", requestValue.coord_type_output, ParameterType.RequestBody);
+            request.AddParameter("start_time", requestValue.StartTime);
+            request.AddParameter("end_time", requestValue.EndTime);
+            request.AddParameter("coord_type_output", requestValue.CoordTypeOutput.GetEnumDescription<CoordType>());
 
             return await Client.PostAsync<CreateJobReply>(request);
         }
@@ -40,7 +39,7 @@ namespace Sino.Extensions.YingYan.Export
         {
 
             var request = new RestRequest("/export/deletejob", Method.POST);
-            request.AddParameter("job_id", requestValue.JobId, ParameterType.RequestBody);
+            request.AddParameter("job_id", requestValue.JobId);
 
             return await Client.PostAsync<DeleteJobReply>(request);
         }
@@ -50,11 +49,11 @@ namespace Sino.Extensions.YingYan.Export
         /// </summary>
         /// <param name="requestValue"></param>
         /// <returns></returns>
-        public async Task<GetJobReply> GetJobAsync(GetJobRequest requestValue)
+        public async Task<GetJobReply> GetJobAsync()
         {
-            var request = new RestRequest("/export/getjob", Method.POST);
+            var request = new RestRequest("/export/getjob", Method.GET);
 
-            return await Client.PostAsync<GetJobReply>(request);
+            return await Client.GetAsync<GetJobReply>(request);
         }
     }
 }
