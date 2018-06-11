@@ -27,6 +27,6 @@ namespace Sino.Extensions.YingYan.Export
         /// </summary>
         /// <param name="requestValue"></param>
         /// <returns></returns>
-        Task<GetJobReply> GetJobAsync(GetJobRequest requestValue);
+        Task<GetJobReply> GetJobAsync();
     }
 }

@@ -47,6 +47,6 @@ namespace Sino.Extensions.YingYan.Track
         /// 历史轨迹点列表
         /// </summary>
         [DeserializeAs(Name = "points")]
-        public Points Points { get; set; }
+        public List<Points> Points { get; set; }
     }
 }

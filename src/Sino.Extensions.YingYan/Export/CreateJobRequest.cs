@@ -19,6 +19,6 @@ namespace Sino.Extensions.YingYan.Export
         /// <summary>
         /// 返回的坐标类型
         /// </summary>
-        public CoordType coord_type_output { get; set; }
+        public CoordType CoordTypeOutput { get; set; }
     }
 }

@@ -6,6 +6,8 @@ using Conditions;
 using RestSharp;
 using Sino.Extensions.YingYan.Common.Extensions;
 using Sino.Extensions.YingYan.Utils;
+using Newtonsoft.Json;
+
 
 namespace Sino.Extensions.YingYan.Track
 {
@@ -30,16 +32,16 @@ namespace Sino.Extensions.YingYan.Track
             .IsInRange(-180.0, 180.0);
 
             var request = new RestRequest("/track/addpoint", Method.POST);
-            request.AddParameter("entity_name", requestValue.EntityName, ParameterType.RequestBody);
-            request.AddParameter("latitude", requestValue.Latitude, ParameterType.RequestBody);
-            request.AddParameter("longitude", requestValue.Longitude, ParameterType.RequestBody);
-            request.AddParameter("loc_time", requestValue.LocTime, ParameterType.RequestBody);
-            request.AddParameter("coord_type_input", requestValue.CoordTypeInput.GetEnumDescription<CoordType>(), ParameterType.RequestBody);
-            request.AddParameter("speed", requestValue.Speed, ParameterType.RequestBody);
-            request.AddParameter("direction", requestValue.Direction, ParameterType.RequestBody);
-            request.AddParameter("height", requestValue.Height, ParameterType.RequestBody);
-            request.AddParameter("radius", requestValue.Radius, ParameterType.RequestBody);
-            request.AddParameter("object_name", requestValue.ObjectName, ParameterType.RequestBody);
+            request.AddParameter("entity_name", requestValue.EntityName);
+            request.AddParameter("latitude", requestValue.Latitude);
+            request.AddParameter("longitude", requestValue.Longitude);
+            request.AddParameter("loc_time", requestValue.LocTime);
+            request.AddParameter("coord_type_input", requestValue.CoordTypeInput.GetEnumDescription<CoordType>());
+            request.AddParameter("speed", requestValue.Speed);
+            request.AddParameter("direction", requestValue.Direction);
+            request.AddParameter("height", requestValue.Height);
+            request.AddParameter("radius", requestValue.Radius);
+            request.AddParameter("object_name", requestValue.ObjectName);
 
             return await Client.PostAsync<AddPointReply>(request);
         }
@@ -53,9 +55,8 @@ namespace Sino.Extensions.YingYan.Track
         {
             Condition.Requires(requestValue.PointList, nameof(requestValue.PointList))
             .IsNotNull();
-
             var request = new RestRequest("/track/addpoints", Method.POST);
-            request.AddParameter("point_list", requestValue.PointList, ParameterType.RequestBody);
+            request.AddParameter("point_list", JsonConvert.SerializeObject(requestValue.PointList));
 
             return await Client.PostAsync<AddPointsReply>(request);
         }
@@ -81,7 +82,7 @@ namespace Sino.Extensions.YingYan.Track
             request.AddParameter("process_option", requestValue.ProcessOption, ParameterType.QueryString);
             request.AddParameter("coord_type_output", requestValue.CoordTypeOutput.GetEnumDescription<CoordType>(), ParameterType.QueryString);
 
-            return await Client.PostAsync<DrivingBehaviourReply>(request);
+            return await Client.GetAsync<DrivingBehaviourReply>(request);
         }
 
         /// <summary>
@@ -99,10 +100,10 @@ namespace Sino.Extensions.YingYan.Track
             request.AddParameter("start_time", requestValue.StartTime, ParameterType.QueryString);
             request.AddParameter("end_time", requestValue.EndTime, ParameterType.QueryString);
             request.AddParameter("is_processed", requestValue.IsProcessed, ParameterType.QueryString);
-            request.AddParameter("process_option", requestValue.EndTime, ParameterType.QueryString);
+            request.AddParameter("process_option", requestValue.ProcessOption, ParameterType.QueryString);
             request.AddParameter("supplement_mode", requestValue.SupplementMode, ParameterType.QueryString);
 
-            return await Client.PostAsync<GetDistanceReply>(request);
+            return await Client.GetAsync<GetDistanceReply>(request);
         }
 
         /// <summary>
@@ -120,7 +121,7 @@ namespace Sino.Extensions.YingYan.Track
             request.AddParameter("process_option", requestValue.ProcessOption, ParameterType.QueryString);
             request.AddParameter("coord_type_output", requestValue.CoordTypeOutput.GetEnumDescription<CoordType>(), ParameterType.QueryString);
 
-            return await Client.PostAsync<GetLatestPointReply>(request);
+            return await Client.GetAsync<GetLatestPointReply>(request);
         }
 
         /// <summary>
@@ -145,7 +146,7 @@ namespace Sino.Extensions.YingYan.Track
             request.AddParameter("page_index", requestValue.PageIndex, ParameterType.QueryString);
             request.AddParameter("page_size", requestValue.PageSize, ParameterType.QueryString);
 
-            return await Client.PostAsync<GetTrackReply>(request);
+            return await Client.GetAsync<GetTrackReply>(request);
         }
 
         /// <summary>
@@ -168,7 +169,7 @@ namespace Sino.Extensions.YingYan.Track
             request.AddParameter("process_option", requestValue.ProcessOption, ParameterType.QueryString);
             request.AddParameter("coord_type_output", requestValue.CoordTypeOutput.GetEnumDescription<CoordType>(), ParameterType.QueryString);
 
-            return await Client.PostAsync<StayPointReply>(request);
+            return await Client.GetAsync<StayPointReply>(request);
         }
     }
 }
