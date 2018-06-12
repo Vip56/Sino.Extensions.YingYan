@@ -34,8 +34,20 @@ namespace Sino.Extensions.YingYan.Space
         /// <summary>
         /// 开发者自定义字段
         /// </summary>
-        [DeserializeAs(Name = "ext")]
-        public Dictionary<string, string> Ext { get; set; }
+        [DeserializeAs(Name = "ext1")]
+        public string Ext1 { get; set; }
+
+        /// <summary>
+        /// 开发者自定义字段
+        /// </summary>
+        [DeserializeAs(Name = "ext2")]
+        public string Ext2 { get; set; }
+
+        /// <summary>
+        /// 开发者自定义字段
+        /// </summary>
+        [DeserializeAs(Name = "ext3")]
+        public string Ext3 { get; set; }
 
         /// <summary>
         /// 最新的轨迹点信息

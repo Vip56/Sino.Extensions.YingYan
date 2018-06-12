@@ -43,6 +43,14 @@ namespace Sino.Extensions.YingYan.Track
             request.AddParameter("radius", requestValue.Radius);
             request.AddParameter("object_name", requestValue.ObjectName);
 
+            if (requestValue.Ext != null && requestValue.Ext.Count > 0)
+            {
+                foreach (var item in requestValue.Ext)
+                {
+                    request.AddParameter(item.Key, item.Value);
+                }
+            }
+
             return await Client.PostAsync<AddPointReply>(request);
         }
 

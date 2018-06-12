@@ -84,5 +84,23 @@ namespace Sino.Extensions.YingYan.Track
         /// </summary>
         [DeserializeAs(Name = "coord_type")]
         public string CoordType { get; set; }
+
+        /// <summary>
+        /// 开发者自定义字段
+        /// </summary>
+        [DeserializeAs(Name = "ext1")]
+        public string Ext1 { get; set; }
+
+        /// <summary>
+        /// 开发者自定义字段
+        /// </summary>
+        [DeserializeAs(Name = "ext2")]
+        public string Ext2 { get; set; }
+
+        /// <summary>
+        /// 开发者自定义字段
+        /// </summary>
+        [DeserializeAs(Name = "ext3")]
+        public string Ext3 { get; set; }
     }
 }
