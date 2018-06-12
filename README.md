@@ -1,6 +1,11 @@
 ﻿## 百度鹰眼.Net Core SDK
 由于存在大量使用百度鹰眼的Restful Api为便于后期的开发和维护，故单独编写对应类库进行封装便于开发和调试。   
 
+
+
+[![Build status](https://ci.appveyor.com/api/projects/status/8x2hr4giawp6q70a?svg=true)](https://ci.appveyor.com/project/vip56/sino-extensions-yingyan )
+[![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg?style=plastic)](https://www.nuget.org/packages/Sino.Extensions.YingYan) 
+
 ## 项目结构
 1. src/Common：公用部分   
 2. src/Terminal：终端管理   
