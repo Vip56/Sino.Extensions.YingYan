@@ -9,6 +9,6 @@ namespace Sino.Extensions.YingYan.Fence
         /// <summary>
         /// 围栏id列表 
         /// </summary>
-        public int[] FenceIds { get; set; }
+        public string FenceIds { get; set; }
     }
 }
