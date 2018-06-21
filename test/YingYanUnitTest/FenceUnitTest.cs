@@ -127,7 +127,7 @@ namespace YingYanUnitTest
         {
             var requset = new DeleteFenceRequest()
             {
-                FenceIds = new int[] { 1, 2 }
+                FenceIds = " 1, 2"
             };
             var result = await Manager.DeleteAsync(requset);
             Assert.NotNull(result);
@@ -139,7 +139,7 @@ namespace YingYanUnitTest
         {
             var requset = new ListRequest()
             {
-                FenceIds = new int[] { 3, 4 }
+                FenceIds = "259, 260"
             };
             var result = await Manager.ListAsync(requset);
             Assert.NotNull(result);

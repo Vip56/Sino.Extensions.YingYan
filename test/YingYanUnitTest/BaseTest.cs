@@ -8,7 +8,7 @@ namespace YingYanUnitTest
 
         public BaseTest()
         {
-            Client = new HttpUtil("http://yingyan.baidu.com/api/v3", "i2AOeWdXhZGzzPbS6ZhiFrSi8lGcZREt", "201039");
+            Client = new HttpUtil("http://yingyan.baidu.com/api/v3", "yFOabSfEtYS8NvpmNnqzsnLa1Nj7GVg7", "122030");
         }
     }
 }
