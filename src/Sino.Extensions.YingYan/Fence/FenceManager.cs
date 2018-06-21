@@ -194,7 +194,6 @@ namespace Sino.Extensions.YingYan.Fence
             {
 
             }
-
             var request = new RestRequest("/fence/list", Method.GET);
             request.AddParameter("fence_name", requestValue.FenceName, ParameterType.QueryString);
             request.AddParameter("monitored_person", requestValue.MonitoredPerson, ParameterType.QueryString);
