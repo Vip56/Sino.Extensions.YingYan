@@ -76,7 +76,8 @@ namespace YingYanUnitTest
             var requset = new UpdateCircleFenceRequest()
             {
                 FenceId = 1,
-                CoordType = CoordType.BD09ll
+                CoordType = CoordType.BD09ll,
+                Radius = 1.1
             };
             var result = await Manager.UpdateCircleFenceAsync(requset);
             Assert.NotNull(result);
