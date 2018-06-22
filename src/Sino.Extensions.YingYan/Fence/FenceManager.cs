@@ -266,6 +266,7 @@ namespace Sino.Extensions.YingYan.Fence
             request.AddParameter("longitude", requestValue.Longitude);
             request.AddParameter("latitude", requestValue.Latitude);
             request.AddParameter("coord_type", requestValue.CoordType.GetEnumDescription<CoordType>());
+            request.AddParameter("radius", requestValue.Radius);
             request.AddParameter("denoise", requestValue.Denoise);
 
             return await Client.PostAsync<UpdateCircleFenceReply>(request);
